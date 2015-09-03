@@ -1,6 +1,7 @@
 # GoogleDriveToOneDrive
-Projet permettant d'exporter une arborescence à partir d'un identifiant de dossier depuis Google Drive vers une bibliothèque OneDrive
-Afin de lancer la solution
+Projet permettant d'exporter une arborescence à partir d'un identifiant de dossier depuis Google Drive vers une bibliothèque OneDrive.
+
+Afin de lancer la solution :
 
 1. Créer un fichier settings.config dans le dossier Exploitation (un fichier settings.config.sample est présentt dans l'aborescence, vous pouvez le copier en changeant son nom)
 2. Celui-ci comporte un ensemble de noeuds, afin de faire fonctionner l'application avec votre environnement, il faudra le remplacer par vos propres données 

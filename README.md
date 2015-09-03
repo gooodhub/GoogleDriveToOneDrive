@@ -9,14 +9,14 @@ Afin de lancer la solution :
 En cas de questions sur la récupération des informations de Google, vous pouvez consulter un tutoriel présent à cette adresse :  http://blog.softit.fr/post/google-drive-telecharger-et-convertir-ses-fichiers-par-la-programmation
 
 
-a. accountServiceP12     ==> Correspond à la clé P12 vous permettant d'identifier votre compte de service google
-b. accountServiceName ==>  nom du compte de service
-c. GoogleLocalFolderStore  => Endroit où seront stockés localement vos documents google drive
-d. ownerToFilter  => Propriétaire google sur lequel vous désirez filtrer
-e. folderParentToRetrieve  => Identifiant dossier parent à récupérer (il est affiché dans l'url)
-f. applicationName => Nom de votre application google
-g. onedrive:destinationFolder => Nom du dossier de destination côté OneDrive
-h. onedrive:urlSite  ==> Url du site OneDrive de destination
-i. onedrive:login   ==> Compte de connexion à votre bibliothèque
-onedrive:password ==> Mot de passe utiisateur ayant accès au site oneDrive de destination
+1. accountServiceP12     ==> Correspond à la clé P12 vous permettant d'identifier votre compte de service google
+2. accountServiceName ==>  nom du compte de service
+3. GoogleLocalFolderStore  => Endroit où seront stockés localement vos documents google drive
+4. ownerToFilter  => Propriétaire google sur lequel vous désirez filtrer
+5. folderParentToRetrieve  => Identifiant dossier parent à récupérer (il est affiché dans l'url)
+6. applicationName => Nom de votre application google
+7. onedrive:destinationFolder => Nom du dossier de destination côté OneDrive
+8. onedrive:urlSite  ==> Url du site OneDrive de destination
+9. onedrive:login   ==> Compte de connexion à votre bibliothèque
+10. onedrive:password ==> Mot de passe utiisateur ayant accès au site oneDrive de destination
 

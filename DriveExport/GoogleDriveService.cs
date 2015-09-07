@@ -25,8 +25,8 @@ namespace DriveExport
 
     public static class GoogleDriveService
     {
-        static int nbFiles = 0;
-        static int nbCopiedFiles = 0;
+        static int _nbFiles = 0;
+        static int _nbCopiedFiles = 0;
         public static List<Dossier> DossiersTemp;
 
         public static void StartFileAndFolders()
@@ -49,62 +49,6 @@ namespace DriveExport
             });
 
             return service;
-        }
-
-        public static bool AllFilesArePresent()
-        {
-            IConfigurableHttpClientInitializer cred = Authenticate(ConfigurationManager.AppSettings["ownerToFilter"]);
-
-            DriveService service = new DriveService(new BaseClientService.Initializer
-            {
-                HttpClientInitializer = cred,
-                ApplicationName = "GoogleDriveToOneDrive",
-            });
-
-            List<File> result = new List<File>();
-            FilesResource.ListRequest request = service.Files.List();
-            request.MaxResults = 1000;
-            request.Q = ("'pl.sgard@clt-services.com' IN owners");
-            int i = 0;
-            do
-            {
-                try
-                {
-                    using (var client = new WebClient())
-                    {
-                        FileList files = request.Execute();
-                        String ownerToFilter = "pl.sgard@clt-services.com";
-
-                        result.AddRange(files.Items);
-                        request.PageToken = files.NextPageToken;
-                        i++;
-                        foreach (File file in files.Items)
-                        {
-                            if (file.MimeType != "application/vnd.google-apps.folder")
-                            {
-                                if (file.MimeType != "application/vnd.google-apps.form")
-                                {
-                                    DirectoryInfo root = new DirectoryInfo(@"F:\GoogleDrive\" + ownerToFilter);
-
-                                    FileInfo[] listfiles = root.GetFiles(file.Title + ".*");
-                                    if (listfiles.Length == 0)
-                                    {
-                                        Console.WriteLine(file.Title);
-                                        return false;
-                                    }
-                                }
-                            }
-
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("An error occurred: " + e.Message);
-                    request.PageToken = null;
-                }
-            } while (!String.IsNullOrEmpty(request.PageToken) || i < 11);
-            return true;
         }
 
         private static IConfigurableHttpClientInitializer Authenticate(String ownerToFilter)
@@ -216,34 +160,25 @@ namespace DriveExport
                     {
                         url = file.EmbedLink;
                     }
-                    else
-                        if (file.MimeType == "application/vnd.google-apps.spreadsheet")
+                    else if (file.MimeType == "application/vnd.google-apps.spreadsheet")
+                    {
+                        string excelFile = file.ExportLinks.SingleOrDefault(f => f.Value.Contains("exportFormat=xlsx")).Value;
+                        if (excelFile != null && !String.IsNullOrWhiteSpace(excelFile))
                         {
-                            if (file.ExportLinks.Any(f => f.Value.Contains("exportFormat=xlsx")))
-                            {
-                                url = file.ExportLinks.SingleOrDefault(f => f.Value.Contains("exportFormat=xlsx")).Value;
-                                fileExtension = "xlsx";
-                            }
+                            url = excelFile;
+                            fileExtension = "xlsx";
                         }
-                        else if (file.MimeType == "application/vnd.google-apps.audio")
-                        {
-                        }
-                        else if (file.MimeType == "application/vnd.google-apps.drawing")
-                        {
-                            url = file.ExportLinks.SingleOrDefault(f => f.Value.Contains("exportFormat=png")).Value;
-                            fileExtension = "png";
-                        }
-                        else if (file.MimeType == "application/vnd.google-apps.sites")
-                        {
-                        }
-                        else if (file.MimeType == "application/vnd.google-apps.video")
-                        {
-                        }
+                    }
+                    else if (file.MimeType == "application/vnd.google-apps.drawing")
+                    {
+                        url = file.ExportLinks.SingleOrDefault(f => f.Value.Contains("exportFormat=png")).Value;
+                        fileExtension = "png";
+                    }
                 }
 
                 if (!String.IsNullOrEmpty(url))
                 {
-                    nbFiles++;
+                    _nbFiles++;
                     HttpResponseMessage response = await service.HttpClient.GetAsync(new Uri(url));
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
@@ -256,8 +191,8 @@ namespace DriveExport
                         using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
                         {
                             stream.CopyTo(fileStream);
-                            nbCopiedFiles++;
-                            Console.WriteLine("Fichiers copiés " + nbCopiedFiles + " " + fileTitle);
+                            _nbCopiedFiles++;
+                            Console.WriteLine("Fichiers copiés " + _nbCopiedFiles + " " + fileTitle);
                             return null;
                         }
                     }

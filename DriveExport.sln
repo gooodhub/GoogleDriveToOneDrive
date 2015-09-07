@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriveExport", "DriveExport\DriveExport.csproj", "{EF14DECC-1CE4-4BAB-8389-D64CBF366CB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriveExportTests", "DriveExportTests\DriveExportTests.csproj", "{CF9332CC-E737-4B07-A99D-1724E32E5F81}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{EF14DECC-1CE4-4BAB-8389-D64CBF366CB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF14DECC-1CE4-4BAB-8389-D64CBF366CB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF14DECC-1CE4-4BAB-8389-D64CBF366CB0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CF9332CC-E737-4B07-A99D-1724E32E5F81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF9332CC-E737-4B07-A99D-1724E32E5F81}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF9332CC-E737-4B07-A99D-1724E32E5F81}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF9332CC-E737-4B07-A99D-1724E32E5F81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

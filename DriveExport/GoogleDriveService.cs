@@ -149,12 +149,10 @@ namespace DriveExport
                     if (file.MimeType == "application/vnd.google-apps.document")
                     {
                         url = file.ExportLinks.SingleOrDefault(f => f.Value.Contains("exportFormat=docx")).Value;
-                        fileExtension = "docx";
                     }
                     else if (file.MimeType == "application/vnd.google-apps.presentation")
                     {
                         url = file.ExportLinks.SingleOrDefault(f => f.Value.Contains("exportFormat=pptx")).Value;
-                        fileExtension = "pptx";
                     }
                     else if (file.MimeType == "application/vnd.google-apps.form")
                     {
@@ -166,13 +164,11 @@ namespace DriveExport
                         if (excelFile != null && !String.IsNullOrWhiteSpace(excelFile))
                         {
                             url = excelFile;
-                            fileExtension = "xlsx";
                         }
                     }
                     else if (file.MimeType == "application/vnd.google-apps.drawing")
                     {
                         url = file.ExportLinks.SingleOrDefault(f => f.Value.Contains("exportFormat=png")).Value;
-                        fileExtension = "png";
                     }
                 }
 
@@ -186,7 +182,7 @@ namespace DriveExport
                         var fileTitle = file.Title.Replace('\\', '-');
                         fileTitle = fileTitle.Replace('/', '-');
                         fileTitle = fileTitle.Replace('#', ' ');
-                        var filePath = @"" + ConfigurationManager.AppSettings["GoogleLocalFolderStore"] + owner + "\\" + fileTitle + "." + fileExtension;
+                        var filePath = @"" + ConfigurationManager.AppSettings["GoogleLocalFolderStore"] + owner + "\\" + fileTitle;
 
                         using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
                         {
